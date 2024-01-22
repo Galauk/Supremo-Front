@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EndpointsService } from '../shared/endpoint.service';
 import { Endpoints } from '../shared/endpoint.model';
 
@@ -16,9 +16,9 @@ export class EndpointsEditComponent implements OnInit {
 
   public headers = {
     array: [
-     { key: 'Chave 1', value: 'Valor 1'},
-     { key: 'Chave 2', value: 'Valor 2'},
-     { key: 'Chave 3', value: 'Valor 3'}
+     { key: 'Chave 1', valor: 'Valor 1'},
+     { key: 'Chave 2', valor: 'Valor 2'},
+     { key: 'Chave 3', valor: 'Valor 3'}
     ]
   };
   constructor(
@@ -54,7 +54,6 @@ export class EndpointsEditComponent implements OnInit {
       id: [null],
       method: [null, Validators.required],
       url: [null, Validators.required],
-      headerContentType: [null],
       header: {
         Authorization: [null],
         content: [null]

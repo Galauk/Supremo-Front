@@ -115,7 +115,7 @@ export class EndpointsService{
     item.options = JSON.stringify(item.options);
 
 
-    return formItem;
+    return item;
 //    return Object.assign(new Endpoints, formItem);
 
   }

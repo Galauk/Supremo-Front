@@ -5,7 +5,7 @@ import { EndpointsRoutingModule } from './endpoints-routing.module';
 import { EndpointsListComponent } from './endpoints-list/endpoints-list.component';
 import { EndpointsNewComponent } from './endpoints-new/endpoints-new.component';
 import { EndpointsEditComponent } from './endpoints-edit/endpoints-edit.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -24,6 +24,7 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [
     EndpointsRoutingModule,
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule,
     MatIconModule, MatButtonModule,

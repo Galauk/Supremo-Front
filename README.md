@@ -1,6 +1,16 @@
-# SupremoFront2
+# SupremoFront
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.18.
+This project was created to load visual in Angular of Api requests of Supremo API.
+
+## Dependency
+
+This project was generated with use of  [Angular CLI](https://github.com/angular/angular-cli) version 12.2.18.
+
+with [NodeJs](https://nodejs.org/en) Version 16.20.2
+
+if you want run this this project in Node above 16, it need use that code before run:
+
+set NODE_OPTIONS="--openssl-legacy-provider"
 
 ## Development server
 
