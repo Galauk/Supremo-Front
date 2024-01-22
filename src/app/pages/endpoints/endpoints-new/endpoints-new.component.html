@@ -1,0 +1,60 @@
+
+
+<div class="container">
+  <form [formGroup]="formEndpoint" (ngSubmit)="saveNewEndpoints()">
+    <div class="mb-3">
+      <label class="form-label">Metódo</label>
+      <select class="form-select" formControlName="method">
+        <option value="GET">GET</option>
+        <option value="POST">POST</option>
+        <option value="PUT">PUT</option>
+      </select>
+      <div class="form-text text-danger" *ngIf="isFormControlInvalid('method')">O metódo é obrigatorio</div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">URL</label>
+      <input type="text" class="form-control" formControlName="url">
+      <div class="form-text text-danger" *ngIf="isFormControlInvalid('url')">A url é obrigatoria</div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Headers</label>
+      <input type="text" class="form-control" formControlName="headers">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Body</label>
+      <textarea type="text" class="form-control" formControlName="body"></textarea>
+      <div class="form-text text-danger" *ngIf="isFormControlInvalid('body')">O corpo é obrigatoria</div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Options</label>
+      <input type="text" class="form-control" formControlName="options">
+      <div class="form-text text-danger" *ngIf="isFormControlInvalid('options')">A seleção do Dataset é obrigatoria</div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Dataset</label>
+      <input type="text" class="form-control" formControlName="datasetId">
+      <div class="form-text text-danger" *ngIf="isFormControlInvalid('datasetId')">A seleção do Dataset é obrigatoria</div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Ordem</label>
+      <input type="text" class="form-control" formControlName="order">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Data de execução</label>
+      <input type="text" class="form-control" formControlName="executedAt">
+    </div>
+
+    <div class="mb-3">
+      <input type="checkbox" class="form-checkbox-control" formControlName="toAuthenticate">
+      <label class="form-label">Autenticado</label>
+    </div>
+    <div class="mb-3">
+      <input type="checkbox" class="form-checkbox-control" formControlName="isActive">
+      <label class="form-label">Ativo</label>
+    </div>
+
+    <div class="d-flex justify-content-end">
+      <button type="submit" class="btn btn-primary">Salvar</button>
+    </div>
+  </form>
+</div>

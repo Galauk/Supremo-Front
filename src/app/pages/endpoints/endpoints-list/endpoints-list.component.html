@@ -1,0 +1,70 @@
+<style>
+  table {
+    width: 100%;
+  }
+</style>
+
+
+<h2>Lista de Endpoint´s</h2>
+<div class="d-flex justify-content-between">
+  <div>
+    <mat-form-field>
+      <mat-label>Filtro</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. exporta" #input>
+    </mat-form-field>
+  </div>
+  <div>
+    <button mat-mini-fab color="primary" data-bs-toggle="modal" data-bs-target="#addNewDataset" >
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>
+
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  <ng-container matColumnDef="id">
+   <th mat-header-cell *matHeaderCellDef mat-sort-header> Id. </th>
+   <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+ </ng-container>
+
+ <ng-container matColumnDef="method">
+   <th mat-header-cell *matHeaderCellDef mat-sort-header> Metódo </th>
+   <td mat-cell *matCellDef="let element"> {{element.method}} </td>
+ </ng-container>
+
+ <ng-container matColumnDef="url">
+   <th mat-header-cell *matHeaderCellDef mat-sort-header> URL </th>
+   <td mat-cell *matCellDef="let element"> {{element.url}} </td>
+ </ng-container>
+
+ <ng-container matColumnDef="functions">
+   <th mat-header-cell *matHeaderCellDef> Funções </th>
+   <td mat-cell *matCellDef="let element">
+     <button mat-icon-button routerLink="/endpoints/edit/{{element.id}}" color="primary">
+       <mat-icon>edit</mat-icon>
+     </button>
+  </td>
+ </ng-container>
+
+ <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+ <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+ <tr class="mat-row" *matNoDataRow>
+   <td class="mat-cell" colspan="4">Não foi encontrado nada com o valor: "{{input.value}}"</td>
+ </tr>
+ </table>
+ <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+
+
+
+<div class="modal fade" id="addNewDataset" target="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Adicionar novo endpoint</h5>
+      </div>
+      <div class="modal-body">
+        <app-endpoints-new></app-endpoints-new>
+      </div>
+    </div>
+  </div>
+</div>
