@@ -21,20 +21,7 @@ export class EndpointsNewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fb.group({
-      method: [null, Validators.required],
-      url: [null, Validators.required],
-      headers: [null],
-      body: [null],
-      options: [null],
-      datasetId: [null],
-      order: [null],
-      executedAt: [null],
-      toAuthenticate: [null],
-      isActive: [null],
-      array: this.fb.array([])
-    })
-    this.adicionarControle();
+    this.adicionarHeader();
   }
 
   private buildFormEndpoint():FormGroup{
@@ -49,15 +36,15 @@ export class EndpointsNewComponent implements OnInit {
       executedAt: [null],
       toAuthenticate: [null],
       isActive: [null],
-      array: this.fb.array([])
+      header: this.fb.array([])
     })
   }
 
   get arrayControls() {
-    return this.formEndpoint.get('array') as FormArray;
+    return this.formEndpoint.get('header') as FormArray;
   }
 
-  public adicionarControle() {
+  public adicionarHeader() {
     const controle = this.fb.group({
       key: ['', Validators.required],
       value: ['', Validators.required]
@@ -66,7 +53,7 @@ export class EndpointsNewComponent implements OnInit {
     this.arrayControls.push(controle);
   }
 
-  public removerControle() {
+  public removerHeader() {
     this.arrayControls.removeAt(this.arrayControls.length-1);
   }
 
