@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Endpoints } from '../shared/endpoint.model';
 import { EndpointsService } from '../shared/endpoint.service';
 import { ToastrService } from 'ngx-toastr';
@@ -21,6 +21,20 @@ export class EndpointsNewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.fb.group({
+      method: [null, Validators.required],
+      url: [null, Validators.required],
+      headers: [null],
+      body: [null],
+      options: [null],
+      datasetId: [null],
+      order: [null],
+      executedAt: [null],
+      toAuthenticate: [null],
+      isActive: [null],
+      array: this.fb.array([])
+    })
+    this.adicionarControle();
   }
 
   private buildFormEndpoint():FormGroup{
@@ -34,8 +48,26 @@ export class EndpointsNewComponent implements OnInit {
       order: [null],
       executedAt: [null],
       toAuthenticate: [null],
-      isActive: [null]
+      isActive: [null],
+      array: this.fb.array([])
     })
+  }
+
+  get arrayControls() {
+    return this.formEndpoint.get('array') as FormArray;
+  }
+
+  public adicionarControle() {
+    const controle = this.fb.group({
+      key: ['', Validators.required],
+      value: ['', Validators.required]
+    });
+
+    this.arrayControls.push(controle);
+  }
+
+  public removerControle() {
+    this.arrayControls.removeAt(this.arrayControls.length-1);
   }
 
   public isFormControlInvalid(controlName:string):boolean{

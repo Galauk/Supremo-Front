@@ -2,6 +2,18 @@
 
 <div class="container">
   <form [formGroup]="formEndpoint" (ngSubmit)="saveNewEndpoints()">
+    <div formArrayName="array">
+      <div class="d-flex justify-content-end">
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary" (click)="adicionarControle()">+</button>
+          <button type="button"  class="btn btn-primary" (click)="removerControle()">-</button>
+        </div>
+      </div>
+      <div *ngFor="let item of arrayControls.controls; let i = index" [formGroupName]="i" class="d-flex">
+        <input type="text" formControlName="key" placeholder="Chave" class="form-control">
+        <input type="text" formControlName="value" placeholder="Valor" class="form-control">
+      </div>
+    </div>
     <div class="mb-3">
       <label class="form-label">Metódo</label>
       <select class="form-select" formControlName="method">
