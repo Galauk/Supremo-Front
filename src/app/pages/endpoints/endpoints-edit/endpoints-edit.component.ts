@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EndpointsService } from '../shared/endpoint.service';
 import { Endpoints } from '../shared/endpoint.model';
+import { CodeModel } from '@ngstack/code-editor';
 
 @Component({
   selector: 'app-endpoints-edit',
@@ -12,15 +13,28 @@ import { Endpoints } from '../shared/endpoint.model';
 })
 export class EndpointsEditComponent implements OnInit {
 
-  public formEndpoint:FormGroup;
+  @Input() activeTheme = 'vs';
+  @Input() readOnly = false;
+  @Input()
 
-  public headers = {
-    array: [
-     { key: 'Chave 1', valor: 'Valor 1'},
-     { key: 'Chave 2', valor: 'Valor 2'},
-     { key: 'Chave 3', valor: 'Valor 3'}
-    ]
+  public formEndpoint:FormGroup;
+  theme = 'vs-dark';
+
+  public codeModel: CodeModel = {
+    language: 'json',
+    uri: 'main.json',
+    value: ''
   };
+
+  options = {
+    contextmenu: true,
+    minimap: {
+      enabled: false
+    }
+  };
+  onCodeChanged(value:string) {
+  }
+
   constructor(
     private fb:FormBuilder,
     private endpointsService:EndpointsService,
@@ -29,42 +43,65 @@ export class EndpointsEditComponent implements OnInit {
     private activeRoute:ActivatedRoute
     ) {
     this.formEndpoint = this.buildFormEndpoint();
-
   }
 
   ngOnInit(): void {
+    this.formEndpoint = this.buildFormEndpoint();
     const endpointId = Number(this.activeRoute.snapshot.paramMap.get('id'));
 
 
     this.endpointsService.listById(endpointId).subscribe(
       res =>{
-        this.formEndpoint.patchValue(res)
+
+        if(res.header && typeof res.header === 'object'){
+          const headers = Object.entries(res.header);
+
+          headers.forEach(([key, value]) => {
+            this.adicionarHeader(key, value);
+          });
+        }
+        res.header = [];
+
+        this.formEndpoint.patchValue(res);
       },
       err =>{
         console.log(err);
         this.toastr.error(err);
       }
     )
-
-
   }
+
+  get arrayControls() {
+    return this.formEndpoint.get('header') as FormArray;
+  }
+
+  public adicionarHeader(key?:string, value?:string) {
+    const controle = this.fb.group({
+      key: [key, Validators.required],
+      value: [value, Validators.required]
+    });
+
+    this.arrayControls.push(controle);
+  }
+
+  public removerHeader() {
+    this.arrayControls.removeAt(this.arrayControls.length-1);
+  }
+
 
   private buildFormEndpoint():FormGroup{
     return this.fb.group({
       id: [null],
       method: [null, Validators.required],
       url: [null, Validators.required],
-      header: {
-        Authorization: [null],
-        content: [null]
-      },
       body: [null],
       options: [null],
       datasetId: [null],
       order: [null],
       executedAt: [null],
       toAuthenticate: [null],
-      isActive: [null]
+      isActive: [null],
+      header: this.fb.array([]),
     })
   }
 

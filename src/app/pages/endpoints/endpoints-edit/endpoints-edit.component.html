@@ -25,10 +25,28 @@
     </div>
     <div class="mb-3">
       <label class="form-label">Headers</label>
-      <textarea class="form-control" formControlName="header" rows="3"></textarea>
+      <div formArrayName="header">
+        <div class="d-flex justify-content-end mb-1">
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary" (click)="adicionarHeader()">+</button>
+            <button type="button"  class="btn btn-primary" (click)="removerHeader()">-</button>
+          </div>
+        </div>
+        <div *ngFor="let item of arrayControls.controls; let i = index" [formGroupName]="i" class="d-flex">
+          <input type="text" formControlName="key" placeholder="Chave" class="form-control">
+          <input type="text" formControlName="value" placeholder="Valor" class="form-control">
+        </div>
+      </div>
     </div>
     <div class="mb-3">
       <label class="form-label">Body</label>
+      <ngs-code-editor
+        class="form-control"
+        theme="theme"
+        [codeModel]="codeModel"
+        [options]="options"
+        (valueChanged)="onCodeChanged($event)">
+    </ngs-code-editor>
       <textarea class="form-control" formControlName="body" rows="3"></textarea>
     </div>
     <div class="mb-3">

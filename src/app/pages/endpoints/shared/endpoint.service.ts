@@ -6,7 +6,6 @@ import { environment } from "src/environments/environment";
 import { Endpoints } from '../shared/endpoint.model';
 
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -110,7 +109,7 @@ export class EndpointsService{
     console.log("item");
     console.log(item);
 
-    item.header = JSON.stringify(item.header);
+    //item.header = JSON.stringify(item.header);
     item.body = JSON.stringify(item.body);
     item.options = JSON.stringify(item.options);
 
