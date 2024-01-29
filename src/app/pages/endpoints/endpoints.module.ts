@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { EndpointsRoutingModule } from './endpoints-routing.module';
@@ -15,6 +15,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
+import { CodeEditorModule } from '@ngstack/code-editor';
+
 @NgModule({
   declarations: [
     EndpointsListComponent,
@@ -26,8 +28,9 @@ import { MatButtonModule } from '@angular/material/button';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    CodeEditorModule,
     MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule,
     MatIconModule, MatButtonModule,
-  ]
+  ],
 })
 export class EndpointsModule { }
