@@ -62,7 +62,6 @@ export class EndpointsService{
       id: item.id,
       method: item.method,
       url: item.url,
-      headerContentType: item.header?.["Content-Type"] || '',
       header: {
        "Content-Type": item.header?.["Content-Type"] || "",
        "AppKey": item.header?.["AppKey"] || "",
@@ -110,7 +109,7 @@ export class EndpointsService{
     console.log(item);
 
     //item.header = JSON.stringify(item.header);
-    item.body = JSON.stringify(item.body);
+    //item.body = JSON.stringify(item.body);
     item.options = JSON.stringify(item.options);
 
 

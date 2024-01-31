@@ -41,9 +41,9 @@
     <div class="mb-3">
       <label class="form-label">Body</label>
       <ngs-code-editor
+        formControlName="body"
         class="form-control"
         theme="theme"
-        [codeModel]="codeModel"
         [options]="options"
         (valueChanged)="onCodeChanged($event)">
     </ngs-code-editor>

@@ -20,10 +20,12 @@ export class EndpointsEditComponent implements OnInit {
   public formEndpoint:FormGroup;
   theme = 'vs-dark';
 
+  public code:string = '';
+
   public codeModel: CodeModel = {
     language: 'json',
     uri: 'main.json',
-    value: ''
+    value: this.code
   };
 
   options = {
@@ -61,6 +63,9 @@ export class EndpointsEditComponent implements OnInit {
           });
         }
         res.header = [];
+
+        this.code = JSON.stringify(res.body);
+        console.log(this.code);
 
         this.formEndpoint.patchValue(res);
       },
