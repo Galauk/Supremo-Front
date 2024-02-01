@@ -25,7 +25,7 @@ export class EndpointsEditComponent implements OnInit {
   public codeModel: CodeModel = {
     language: 'json',
     uri: 'main.json',
-    value: this.code
+    value: ''
   };
 
   options = {
@@ -34,6 +34,7 @@ export class EndpointsEditComponent implements OnInit {
       enabled: false
     }
   };
+
   onCodeChanged(value:string) {
   }
 
@@ -55,6 +56,8 @@ export class EndpointsEditComponent implements OnInit {
     this.endpointsService.listById(endpointId).subscribe(
       res =>{
 
+        const code = JSON.stringify(res.body);
+
         if(res.header && typeof res.header === 'object'){
           const headers = Object.entries(res.header);
 
@@ -64,10 +67,9 @@ export class EndpointsEditComponent implements OnInit {
         }
         res.header = [];
 
-        this.code = JSON.stringify(res.body);
-        console.log(this.code);
-
         this.formEndpoint.patchValue(res);
+        this.formEndpoint.get("body")?.setValue(code);
+        [this.codeModel.value] = code;
       },
       err =>{
         console.log(err);
