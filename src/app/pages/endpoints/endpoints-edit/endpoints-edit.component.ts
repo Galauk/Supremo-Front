@@ -13,25 +13,32 @@ import { CodeModel } from '@ngstack/code-editor';
 })
 export class EndpointsEditComponent implements OnInit {
 
-  @Input() activeTheme = 'vs';
+  @Input() activeTheme = 'vs-dark';
   @Input() readOnly = false;
   @Input()
 
   public formEndpoint:FormGroup;
   theme = 'vs-dark';
 
-  public code:string = '';
+  public code:string = '13223';
 
   public codeModel: CodeModel = {
     language: 'json',
     uri: 'main.json',
-    value: ''
+    value: '{}',
+
   };
+
+  dependencies: string[] = [
+    '@types/node',
+    '@ngstack/translate',
+    '@ngstack/code-editor'
+  ];
 
   options = {
     contextmenu: true,
     minimap: {
-      enabled: false
+      enabled: true
     }
   };
 
@@ -66,10 +73,10 @@ export class EndpointsEditComponent implements OnInit {
           });
         }
         res.header = [];
+        this.codeModel.value = "teste123";
 
         this.formEndpoint.patchValue(res);
         this.formEndpoint.get("body")?.setValue(code);
-        [this.codeModel.value] = code;
       },
       err =>{
         console.log(err);

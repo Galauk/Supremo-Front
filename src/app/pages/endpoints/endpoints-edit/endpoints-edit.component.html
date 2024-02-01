@@ -41,11 +41,10 @@
     <div class="mb-3">
       <label class="form-label">Body</label>
       <ngs-code-editor
-        [ngModelOptions]="{standalone: true}"
-        [(ngModel)]="code"
         class="form-control"
         theme="theme"
         [options]="options"
+        [codeModel]="codeModel"
         (valueChanged)="onCodeChanged($event)">
     </ngs-code-editor>
       <textarea class="form-control" formControlName="body" rows="3"></textarea>
