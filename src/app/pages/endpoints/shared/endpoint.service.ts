@@ -32,7 +32,6 @@ export class EndpointsService{
   }
 
   public listById(id:number):Observable<Endpoints>{
-
     const url = `${localStorage.getItem('urlDomain')}/endpoints/${id}`;
 
     return this.http.get(url).pipe(
@@ -55,67 +54,10 @@ export class EndpointsService{
   }
 
   private mapToEndpoint(data:any):Object{
-
     const item:any = data.data[0];
-
-    const formItem = {
-      id: item.id,
-      method: item.method,
-      url: item.url,
-      header: {
-       "Content-Type": item.header?.["Content-Type"] || "",
-       "AppKey": item.header?.["AppKey"] || "",
-       "AppId": item.header?.["AppId"] || ""
-      },
-      body: {
-       data: item.body?.data || ""
-      },
-      options: {
-       settings: {
-          apiInfo: {
-           version: item.options?.settings?.apiInfo?.version || "",
-           requestRate: item.options?.settings?.apiInfo?.requestRate || 0
-          },
-          operationInfo: {
-           type: item.options?.settings?.operationInfo?.type || ""
-          },
-          sourceInfo: {
-           datasetId: item.options?.settings?.sourceInfo?.datasetId || null,
-           identificationFields: {
-              origin: item.options?.settings?.sourceInfo?.identificationFields?.origin || [],
-              destination: item.options?.settings?.sourceInfo?.identificationFields?.destination || []
-           }
-          }
-       },
-       auth: {
-          endpoint: item.options?.auth?.endpoint || ""
-       }
-      },
-      datasetId: item?.datasetId || null,
-      order: item?.order || 0,
-      executedAt: item?.executedAt || null,
-      toAuthenticate: item?.toAuthenticate || false,
-      isActive: item?.isActive || false
-    };
-
-    console.log("formitem");
-    console.log(formItem);
-
-    //return formItem;
-
-
-
-    console.log("item");
-    console.log(item);
-
-    //item.header = JSON.stringify(item.header);
-    //item.body = JSON.stringify(item.body);
-    item.options = JSON.stringify(item.options);
-
 
     return item;
 //    return Object.assign(new Endpoints, formItem);
-
   }
 
   private mapToEndpoints(data:any):Array<Endpoints>{

@@ -18,32 +18,34 @@ export class EndpointsEditComponent implements OnInit {
   @Input()
 
   public formEndpoint:FormGroup;
-  theme = 'vs-dark';
 
-  public code:string = '13223';
-
-  public codeModel: CodeModel = {
+  public codeModelBody: CodeModel = {
     language: 'json',
     uri: 'main.json',
     value: '{}',
-
   };
+  public codeModelOption: CodeModel = {
+    language: 'json',
+    uri: 'main2.json',
+    value: '{}'
+  }
 
-  dependencies: string[] = [
-    '@types/node',
-    '@ngstack/translate',
-    '@ngstack/code-editor'
-  ];
+  setCodeModel(newValue:string){
+    return {
+      language: 'json',
+      uri: 'main.json',
+      value: newValue,
+    };
+  }
 
-  options = {
+  public options = {
+    language:"typescript",
+    theme:"vs-dark",
     contextmenu: true,
     minimap: {
       enabled: true
     }
   };
-
-  onCodeChanged(value:string) {
-  }
 
   constructor(
     private fb:FormBuilder,
@@ -63,8 +65,6 @@ export class EndpointsEditComponent implements OnInit {
     this.endpointsService.listById(endpointId).subscribe(
       res =>{
 
-        const code = JSON.stringify(res.body);
-
         if(res.header && typeof res.header === 'object'){
           const headers = Object.entries(res.header);
 
@@ -73,10 +73,14 @@ export class EndpointsEditComponent implements OnInit {
           });
         }
         res.header = [];
-        this.codeModel.value = "teste123";
+
+        const codeBody = JSON.stringify(res.body, null, "\t");
+        this.codeModelBody = this.setCodeModel(codeBody);
+
+        const codeOptions = JSON.stringify(res.options, null, "\t");
+        this.codeModelOption = this.setCodeModel(codeOptions);
 
         this.formEndpoint.patchValue(res);
-        this.formEndpoint.get("body")?.setValue(code);
       },
       err =>{
         console.log(err);
@@ -101,7 +105,6 @@ export class EndpointsEditComponent implements OnInit {
   public removerHeader() {
     this.arrayControls.removeAt(this.arrayControls.length-1);
   }
-
 
   private buildFormEndpoint():FormGroup{
     return this.fb.group({

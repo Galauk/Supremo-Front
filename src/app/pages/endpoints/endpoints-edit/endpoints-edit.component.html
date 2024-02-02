@@ -42,16 +42,17 @@
       <label class="form-label">Body</label>
       <ngs-code-editor
         class="form-control"
-        theme="theme"
         [options]="options"
-        [codeModel]="codeModel"
-        (valueChanged)="onCodeChanged($event)">
-    </ngs-code-editor>
-      <textarea class="form-control" formControlName="body" rows="3"></textarea>
+        [codeModel]="codeModelBody">
+      </ngs-code-editor>
     </div>
     <div class="mb-3">
       <label class="form-label">Options</label>
-      <textarea class="form-control" formControlName="options" rows="3"></textarea>
+      <ngs-code-editor
+        class="form-control"
+        [options]="options"
+        [codeModel]="codeModelOption">
+      </ngs-code-editor>
     </div>
     <div class="mb-3">
       <label class="form-label">Dataset</label>
@@ -62,7 +63,13 @@
       <input type="text" class="form-control" formControlName="order">
     </div>
     <div class="mb-3">
-      <label class="form-label">Data de execução</label>
+      <label class="form-label">Data de execução</label><br>
+      <mat-form-field class="d-block" appearance="fill">
+        <mat-label>Escolha uma data</mat-label>
+        <input class="form-control" matInput [matDatepicker]="picker" formControlName="executedAt">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
       <input type="text" class="form-control" formControlName="executedAt">
     </div>
     <div class="mb-3">

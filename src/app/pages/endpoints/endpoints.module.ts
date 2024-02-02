@@ -14,6 +14,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 
 import { CodeEditorModule } from '@ngstack/code-editor';
 
@@ -29,8 +31,10 @@ import { CodeEditorModule } from '@ngstack/code-editor';
     FormsModule,
     ReactiveFormsModule,
     CodeEditorModule,
-    MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule,
-    MatIconModule, MatButtonModule,
+    MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatDatepickerModule, MatNativeDateModule,
   ],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'br-BR'},
+  ]
 })
 export class EndpointsModule { }
