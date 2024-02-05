@@ -172,20 +172,29 @@ export class EndpointsEditComponent implements OnInit {
       this.toastr.error("Falha ao escrever json do Options");
       return;
     }
+    if(typeof endpoint.header.map == 'function'){
+      let headerss:string = "{";
+      let i = 0;
+      endpoint.header.map((item:any) => {
+        if(i > 0){headerss += ",";}
+        headerss += '"'+item.key+'" : "'+item.value+'"';
+        i++;
+      });
+      headerss += "}";
 
-    let headerss:string = "{";
-    let i = 0;
-    endpoint.header.forEach((item:any) => {
-      if(i > 0){headerss += ",";}
-      headerss += '"'+item.key+'" : "'+item.value+'"';
-      i++;
-    });
-    headerss += "}";
+      endpoint.header = JSON.parse(headerss);
+    }
 
-    endpoint.header = JSON.parse(headerss);
-
-    console.log(endpoint);
-    this.toastr.success("Endpoint atualizado.");
+    this.endpointsService.update(endpoint).subscribe(
+      res => {
+        this.toastr.success("Endpoint atualizado.");
+        this.router.navigate(['endpoints'])
+      },
+      err => {
+        this.toastr.error("Falha ao atualizar Endpoint.");
+        console.log(err);
+      }
+    )
   }
 
 }

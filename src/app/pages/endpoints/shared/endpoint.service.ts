@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { environment } from "src/environments/environment";
 import { Endpoints } from '../shared/endpoint.model';
 
 
@@ -46,18 +45,16 @@ export class EndpointsService{
     )
   }
 
-  public update(dataset:Endpoints):Observable<Endpoints>{
-    const url = `${localStorage.getItem('urlDomain')}/endpoints/${dataset.id}`;
-    return this.http.put(url,{dataset}).pipe(
+  public update(data:Endpoints):Observable<Endpoints>{
+    const url = `${localStorage.getItem('urlDomain')}/endpoints/${data.id}`;
+    return this.http.put(url,data).pipe(
       map(this.mapToEndpoint)
     )
   }
 
   private mapToEndpoint(data:any):Object{
     const item:any = data.data[0];
-
     return item;
-//    return Object.assign(new Endpoints, formItem);
   }
 
   private mapToEndpoints(data:any):Array<Endpoints>{
