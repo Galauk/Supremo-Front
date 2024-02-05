@@ -5,6 +5,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { EndpointsService } from '../shared/endpoint.service';
 import { Endpoints } from '../shared/endpoint.model';
 import { CodeModel } from '@ngstack/code-editor';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Component({
   selector: 'app-endpoints-edit',
@@ -18,6 +19,8 @@ export class EndpointsEditComponent implements OnInit {
   @Input()
 
   public formEndpoint:FormGroup;
+  public bodyJson: string = '';
+  public optionJson: string = '';
 
   public codeModelBody: CodeModel = {
     language: 'json',
@@ -30,12 +33,25 @@ export class EndpointsEditComponent implements OnInit {
     value: '{}'
   }
 
-  setCodeModel(newValue:string){
+  setCodeModel(newValue:string,type:string){
+    if(type === "body"){
+      this.onCodeChangedBody(newValue);
+    }else{
+      this.onCodeChangedOptions(newValue);
+    }
     return {
       language: 'json',
       uri: 'main.json',
       value: newValue,
     };
+  }
+
+  public onCodeChangedBody(value:string){
+    this.bodyJson = value;
+  }
+
+  public onCodeChangedOptions(value:string){
+    this.optionJson = value;
   }
 
   public options = {
@@ -75,10 +91,10 @@ export class EndpointsEditComponent implements OnInit {
         res.header = [];
 
         const codeBody = JSON.stringify(res.body, null, "\t");
-        this.codeModelBody = this.setCodeModel(codeBody);
+        this.codeModelBody = this.setCodeModel(codeBody,'body');
 
         const codeOptions = JSON.stringify(res.options, null, "\t");
-        this.codeModelOption = this.setCodeModel(codeOptions);
+        this.codeModelOption = this.setCodeModel(codeOptions,'option');
 
         this.formEndpoint.patchValue(res);
       },
@@ -143,7 +159,33 @@ export class EndpointsEditComponent implements OnInit {
   }
 
   public onUpdate(){
-    console.log(this.formEndpoint.value);
+    const endpoint = this.formEndpoint.value;
+    try{
+      endpoint.body = JSON.parse(this.bodyJson);
+    }catch(e){
+      this.toastr.error("Falha ao escrever json do Body");
+      return;
+    }
+    try{
+      endpoint.options = JSON.parse(this.optionJson);
+    }catch(e){
+      this.toastr.error("Falha ao escrever json do Options");
+      return;
+    }
+
+    let headerss:string = "{";
+    let i = 0;
+    endpoint.header.forEach((item:any) => {
+      if(i > 0){headerss += ",";}
+      headerss += '"'+item.key+'" : "'+item.value+'"';
+      i++;
+    });
+    headerss += "}";
+
+    endpoint.header = JSON.parse(headerss);
+
+    console.log(endpoint);
+    this.toastr.success("Endpoint atualizado.");
   }
 
 }
