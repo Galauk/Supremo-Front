@@ -33,13 +33,21 @@
     </div>
     <div class="mb-3">
       <label class="form-label">Body</label>
-      <textarea type="text" class="form-control" formControlName="body"></textarea>
-      <div class="form-text text-danger" *ngIf="isFormControlInvalid('body')">O corpo é obrigatoria</div>
+      <ngs-code-editor
+        class="form-control"
+        [options]="options"
+        [codeModel]="codeModelBody"
+        (valueChanged)="onCodeChangedBody($event)">
+      </ngs-code-editor>
     </div>
     <div class="mb-3">
       <label class="form-label">Options</label>
-      <input type="text" class="form-control" formControlName="options">
-      <div class="form-text text-danger" *ngIf="isFormControlInvalid('options')">A seleção do Dataset é obrigatoria</div>
+      <ngs-code-editor
+        class="form-control"
+        [options]="options"
+        [codeModel]="codeModelOption"
+        (valueChanged)="onCodeChangedOptions($event)">
+      </ngs-code-editor>
     </div>
     <div class="mb-3">
       <label class="form-label">Dataset</label>
@@ -56,12 +64,14 @@
     </div>
 
     <div class="mb-3">
-      <input type="checkbox" class="form-checkbox-control" formControlName="toAuthenticate">
-      <label class="form-label">Autenticado</label>
+      <input type="checkbox" class="form-checkbox-control" formControlName="toAuthenticate" id="toAuthenticate">
+      &nbsp;
+      <label class="form-label" for="toAuthenticate">Autenticado</label>
     </div>
     <div class="mb-3">
-      <input type="checkbox" class="form-checkbox-control" formControlName="isActive">
-      <label class="form-label">Ativo</label>
+      <input type="checkbox" class="form-checkbox-control" formControlName="isActive" id="isActive">
+      &nbsp;
+      <label class="form-label" for="isActive">Ativo</label>
     </div>
 
     <div class="d-flex justify-content-end">

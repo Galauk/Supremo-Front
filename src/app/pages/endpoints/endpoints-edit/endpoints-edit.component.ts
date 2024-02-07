@@ -25,12 +25,12 @@ export class EndpointsEditComponent implements OnInit {
   public codeModelBody: CodeModel = {
     language: 'json',
     uri: 'main.json',
-    value: '{}',
+    value: '',
   };
   public codeModelOption: CodeModel = {
     language: 'json',
     uri: 'main2.json',
-    value: '{}'
+    value: ''
   }
 
   setCodeModel(newValue:string,type:string){
@@ -140,22 +140,6 @@ export class EndpointsEditComponent implements OnInit {
 
   public isFormControlInvalid(controlName:string):boolean{
     return !!(this.formEndpoint.get(controlName)?.invalid && this.formEndpoint.get(controlName)?.touched);
-  }
-
-  public updateDataset(){
-
-    const endpoint:Endpoints = this.formEndpoint.value as Endpoints;
-
-    this.endpointsService.update(endpoint).subscribe(
-      res => {
-        this.toastr.success("Endpoint atualizado.");
-        this.router.navigate(['endpoints'])
-      },
-      err => {
-        this.toastr.error("Falha ao atualizar Endpoint.");
-      }
-    )
-
   }
 
   public onUpdate(){
