@@ -25,15 +25,36 @@
     </div>
     <div class="mb-3">
       <label class="form-label">Headers</label>
-      <textarea class="form-control" formControlName="header" rows="3"></textarea>
+      <div formArrayName="header">
+        <div class="d-flex justify-content-end mb-1">
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary" (click)="adicionarHeader()">+</button>
+            <button type="button"  class="btn btn-primary" (click)="removerHeader()">-</button>
+          </div>
+        </div>
+        <div *ngFor="let item of arrayControls.controls; let i = index" [formGroupName]="i" class="d-flex">
+          <input type="text" formControlName="key" placeholder="Chave" class="form-control">
+          <input type="text" formControlName="value" placeholder="Valor" class="form-control">
+        </div>
+      </div>
     </div>
     <div class="mb-3">
       <label class="form-label">Body</label>
-      <textarea class="form-control" formControlName="body" rows="3"></textarea>
+      <ngs-code-editor
+        class="form-control"
+        [options]="options"
+        [codeModel]="codeModelBody"
+        (valueChanged)="onCodeChangedBody($event)">
+      </ngs-code-editor>
     </div>
     <div class="mb-3">
       <label class="form-label">Options</label>
-      <textarea class="form-control" formControlName="options" rows="3"></textarea>
+      <ngs-code-editor
+        class="form-control"
+        [options]="options"
+        [codeModel]="codeModelOption"
+        (valueChanged)="onCodeChangedOptions($event)">
+      </ngs-code-editor>
     </div>
     <div class="mb-3">
       <label class="form-label">Dataset</label>
@@ -44,7 +65,7 @@
       <input type="text" class="form-control" formControlName="order">
     </div>
     <div class="mb-3">
-      <label class="form-label">Data de execução</label>
+      <label class="form-label">Data de execução</label><br>
       <input type="text" class="form-control" formControlName="executedAt">
     </div>
     <div class="mb-3">

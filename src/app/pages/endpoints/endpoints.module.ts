@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { EndpointsRoutingModule } from './endpoints-routing.module';
@@ -14,6 +14,10 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+
+import { CodeEditorModule } from '@ngstack/code-editor';
 
 @NgModule({
   declarations: [
@@ -26,8 +30,11 @@ import { MatButtonModule } from '@angular/material/button';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule,
-    MatIconModule, MatButtonModule,
+    CodeEditorModule,
+    MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatDatepickerModule, MatNativeDateModule,
+  ],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'br-BR'},
   ]
 })
 export class EndpointsModule { }

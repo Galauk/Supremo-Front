@@ -13,8 +13,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './security/auth.interceptor';
 import { AuthGuard } from './security/auth.guard';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+
+import { CodeEditorModule } from '@ngstack/code-editor';
 
 @NgModule({
   declarations: [
@@ -32,6 +36,8 @@ import { MatIconModule } from '@angular/material/icon';
     ReactiveFormsModule,
     HttpClientModule,
     MatButtonModule, MatIconModule,
+    MatDatepickerModule,
+    CodeEditorModule.forRoot(),
   ],
   providers: [
     AuthGuard,
