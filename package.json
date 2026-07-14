@@ -6,16 +6,15 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "debug": "cross-env NODE_ENV=production NODE_OPTIONS=--openssl-legacy-provider  node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "~12.2.0",
     "@angular/cdk": "^12.2.13",
-    "@angular/common": ">=19.2.16",
-    "@angular/compiler": "~19.2.18",
-    "@angular/core": "~19.2.18",
+    "@angular/common": "~12.2.0",
+    "@angular/compiler": "~12.2.0",
+    "@angular/core": "~12.2.0",
     "@angular/forms": "~12.2.0",
     "@angular/material": "^12.2.13",
     "@angular/platform-browser": "~12.2.0",
@@ -31,7 +30,7 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "~12.2.18",
     "@angular/cli": "~12.2.18",
-    "@angular/compiler-cli": "~19.2.18",
+    "@angular/compiler-cli": "~12.2.17",
     "@types/jasmine": "~3.8.0",
     "@types/node": "^12.11.1",
     "jasmine-core": "~3.8.0",
