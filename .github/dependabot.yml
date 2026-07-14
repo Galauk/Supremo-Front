@@ -4,5 +4,12 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 0
     ignore:
+      # Ignora todas as dependências Angular (velhas e vulneráveis)
       - dependency-name: "@angular/*"
+      - dependency-name: "@angular-devkit/*"
+      - dependency-name: "@schematics/*"
+      # Ignora outros pacotes problemáticos do projeto
+      - dependency-name: "rxjs"
+      - dependency-name: "zone.js"
